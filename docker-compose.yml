@@ -1,0 +1,23 @@
+version: '3'
+services:
+  server:
+    build: ./node-backend
+    environment:
+      API_HOST: http://localhost
+    ports:
+      - 8000:8000
+    volumes:
+      - /node-backend
+    command: node server.js
+
+
+  client:
+    build: ./react-frontend
+    environment:
+      PORT: 3000
+      PROXY_API: http://localhost:8000/
+    ports:
+      - 3000:3000
+    command: npm run start
+    volumes:
+      - /react-frontend
